@@ -1,16 +1,85 @@
-//your variable declarations here
+SpaceShip ship = new SpaceShip();
+boolean mouseMove;
+
 public void setup() 
 {
-  //your code here
+  size(500,500);
 }
+
 public void draw() 
 {
-  //your code here
+  background(255);
+  ship.show(); 
+  ship.move();
+  ship.angle();
+
 }
-class SpaceShip //extends Floater  
-{   
-    //your code here
+
+void mouseListener() {
+  if (mouseX != MouseInfo.getPointerInfo().getLocation().getX())
 }
+
+class SpaceShip extends Floater  
+{  
+  public SpaceShip() {
+    corners = 4;
+    xCorners = new int[corners];
+    yCorners = new int[corners];
+    xCorners[0] = -8;
+    yCorners[0] = -8;
+    xCorners[1] = 16;
+    yCorners[1] = 0;
+    xCorners[2] = -8;
+    yCorners[2] = 8;
+    xCorners[3] = -2;
+    yCorners[3] = 0;
+  }
+
+  public void angle() {
+    float xDistance = mouseX - ship.getX();
+    float yDistance = mouseY - ship.getY();
+    double angleToTurn = Math.toDegrees(Math.atan2(yDistance, xDistance));
+    ship.rotate((int)angleToTurn);
+  }
+
+  public void setX(int x) {myCenterX = x;} //center X
+  public int getX(){return (int)(myCenterX);} 
+
+  public void setY(int y){myCenterY = y;} //Center Y
+  public int getY(){return (int)(myCenterY);}
+
+  public void setDirectionX(double x) {myDirectionX = x;} //direction x
+  public double getDirectionX() {return myDirectionX;}
+
+  public void setDirectionY(double y) {myDirectionY = y;}//directino y
+  public double getDirectionY() {return myDirectionY;}
+
+  public void setPointDirection(int degrees){myPointDirection = degrees;} // point direction
+  public double getPointDirection(){return myPointDirection;}  
+}
+
+public void keyPressed() {
+
+  if (key == 'w') {ship.accelerate(.3);}
+  if (key == 's') {ship.accelerate(-.3);}
+  
+  if(key=='a') {
+    ship.rotate(5);
+  }
+  if(key == 'd') {
+    ship.rotate(-5);
+  }
+
+  if (key == 'q') {
+    ship.setX((int)(Math.random()*501));
+    ship.setY((int)(Math.random()*501));
+    ship.accelerate(0);
+    ship.rotate(0);
+    }
+}
+
+
+
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
   protected int corners;  //the number of corners, a triangular floater has 3   
@@ -40,12 +109,13 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     myDirectionX += ((dAmount) * Math.cos(dRadians));    
     myDirectionY += ((dAmount) * Math.sin(dRadians));       
   }   
+
   public void rotate (int nDegreesOfRotation)   
   {     
     //rotates the floater by a given number of degrees    
     myPointDirection+=nDegreesOfRotation;   
-  }   
-  public void move ()   //move the floater in the current direction of travel
+  }   //move the floater in the current direction of travel
+  public void move ()   
   {      
     //change the x and y coordinates by myDirectionX and myDirectionY       
     myCenterX += myDirectionX;    
@@ -68,8 +138,9 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     {     
       myCenterY = height;    
     }   
-  }   
-  public void show ()  //Draws the floater at the current position  
+  }  
+  //Draws the floater at the current position
+  public void show ()    
   {             
     fill(myColor);   
     stroke(myColor);    
@@ -87,4 +158,5 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     endShape(CLOSE);  
   }   
 } 
+//abstract end
 
