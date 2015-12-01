@@ -1,9 +1,10 @@
 SpaceShip ship = new SpaceShip();
-boolean mouseMove;
+
 
 public void setup() 
 {
   size(500,500);
+  
 }
 
 public void draw() 
@@ -11,16 +12,15 @@ public void draw()
   background(255);
   ship.show(); 
   ship.move();
-  ship.angle();
+  ship.directions();
+  // ship.angle();
 
 }
 
-void mouseListener() {
-  if (mouseX != MouseInfo.getPointerInfo().getLocation().getX())
-}
 
-class SpaceShip extends Floater  
-{  
+class SpaceShip extends Floater
+{
+  private boolean up,down,right,left;  
   public SpaceShip() {
     corners = 4;
     xCorners = new int[corners];
@@ -33,13 +33,18 @@ class SpaceShip extends Floater
     yCorners[2] = 8;
     xCorners[3] = -2;
     yCorners[3] = 0;
+    up = false;
+    down = false;
+    left = false;
+    right = false;
+   
   }
 
   public void angle() {
-    float xDistance = mouseX - ship.getX();
-    float yDistance = mouseY - ship.getY();
-    double angleToTurn = Math.toDegrees(Math.atan2(yDistance, xDistance));
-    ship.rotate((int)angleToTurn);
+    // float xDistance = mouseX - ship.getX();
+    // float yDistance = mouseY - ship.getY();
+    // double angleToTurn = Math.toDegrees(Math.atan2(yDistance, xDistance));
+    // ship.rotate((int)angleToTurn);
   }
 
   public void setX(int x) {myCenterX = x;} //center X
@@ -56,27 +61,54 @@ class SpaceShip extends Floater
 
   public void setPointDirection(int degrees){myPointDirection = degrees;} // point direction
   public double getPointDirection(){return myPointDirection;}  
+
+  public void directions() {
+    if (keyPressed == true){
+      if (key == 'w') {
+        up = true;
+        down = false;
+      }
+      if (key == 's') {
+        down = true;
+        up =false;
+      } 
+      if(key=='a') {
+        left = true;
+        right = false;
+        println ("a");
+      }
+      if(key == 'd') {
+        right = true;
+        left = false;
+      } 
+
+      if (key == 'q') {
+        ship.setX((int)(Math.random()*501));
+        ship.setY((int)(Math.random()*501));
+        ship.accelerate(0);
+        ship.rotate(0);
+      }
+    } //end of keyPressed
+    if(up == true) {ship.accelerate(.1);}
+    if(down == true) {ship.accelerate(-.1);}
+    if(left == true) {ship.rotate(3);}
+    if (right == true) {ship.rotate(-3);}
+  }
 }
 
-public void keyPressed() {
 
-  if (key == 'w') {ship.accelerate(.3);}
-  if (key == 's') {ship.accelerate(-.3);}
+
+// class Star {
+//   int [] starArray = new starArray[200];
+//   int x,y;
+
+//   public Star() {
+//     x=(int)(Math.random()*500);
+//     y=(int)(math.random()*500);
+//   }
+
   
-  if(key=='a') {
-    ship.rotate(5);
-  }
-  if(key == 'd') {
-    ship.rotate(-5);
-  }
-
-  if (key == 'q') {
-    ship.setX((int)(Math.random()*501));
-    ship.setY((int)(Math.random()*501));
-    ship.accelerate(0);
-    ship.rotate(0);
-    }
-}
+// }
 
 
 
