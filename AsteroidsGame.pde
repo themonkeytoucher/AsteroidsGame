@@ -12,12 +12,81 @@ public void draw()
   background(255);
   ship.show(); 
   ship.move();
-  ship.directions();
+  //ship.directions();
   // ship.angle();
 
 }
 
+public void keyPressed() 
+{
+  if(keyPressed == true) {
+    if (key == 'w') 
+    {
+      ship.setUp(true);
+    }
+    if (key == 's') 
+    {
+      ship.setDown(true);
+    } 
+    if(key=='a') 
+    {
+      ship.setLeft(true);          
+    }
+    if(key == 'd') 
+    {
+      ship.setRight(true);
+    } 
 
+    if (key == 'q') 
+    {
+            ship.setX((int)(Math.random()*501));
+            ship.setY((int)(Math.random()*501));
+            ship.accelerate(0);
+            ship.setDirectionX(0);
+            ship.setDirectionY(0);
+            ship.rotate(0);
+    }
+  }
+   //end of keyPressed == true
+
+    if(ship.getUp()==true) {ship.accelerate(.3);}
+    else{ship.accelerate(0);}
+
+    if(ship.getDown() == true) {ship.accelerate(-.3);}
+    else{ship.accelerate(0);}
+
+    if(ship.getLeft() == true) {ship.rotate(-3);}
+    else{ship.rotate(0);}
+
+    if (ship.getRight() == true) {ship.rotate(3);}
+    else {ship.rotate(0);}
+}
+
+public void keyReleased()
+{
+    // if (keyReleased == true)
+    // {
+    if (key == 'w')
+    {
+      ship.setUp(false);
+    }
+    if (key == 's') 
+    {
+      ship.setDown(false);
+    } 
+    if(key=='a') 
+    {
+      ship.setLeft(false);
+      println ("a");   
+    }
+    if(key == 'd') 
+    {
+      ship.setRight(false);
+    }
+    //} 
+}
+
+//spaceship start ---------------------------------------------------------------------------------------------------------------------------------------
 class SpaceShip extends Floater
 {
   private boolean up,down,right,left;  
@@ -46,6 +115,18 @@ class SpaceShip extends Floater
     // double angleToTurn = Math.toDegrees(Math.atan2(yDistance, xDistance));
     // ship.rotate((int)angleToTurn);
   }
+  public void setUp(boolean x){up = x;}
+  public Boolean getUp() {return up;}
+
+  public void setDown(boolean y){down = y;}
+  public Boolean getDown() {return down;}
+
+  public void setRight(boolean r){right = r;}
+  public Boolean getRight() {return right;}
+
+  public void setLeft(boolean l){left = l;}
+  public Boolean getLeft(){return left;}
+
 
   public void setX(int x) {myCenterX = x;} //center X
   public int getX(){return (int)(myCenterX);} 
@@ -62,43 +143,12 @@ class SpaceShip extends Floater
   public void setPointDirection(int degrees){myPointDirection = degrees;} // point direction
   public double getPointDirection(){return myPointDirection;}  
 
-  public void directions() {
-    if (keyPressed == true){
-      if (key == 'w') {
-        up = true;
-        down = false;
-      }
-      if (key == 's') {
-        down = true;
-        up =false;
-      } 
-      if(key=='a') {
-        left = true;
-        right = false;
-        println ("a");
-      }
-      if(key == 'd') {
-        right = true;
-        left = false;
-      } 
-
-      if (key == 'q') {
-        ship.setX((int)(Math.random()*501));
-        ship.setY((int)(Math.random()*501));
-        ship.accelerate(0);
-        ship.rotate(0);
-      }
-    } //end of keyPressed
-    if(up == true) {ship.accelerate(.1);}
-    if(down == true) {ship.accelerate(-.1);}
-    if(left == true) {ship.rotate(3);}
-    if (right == true) {ship.rotate(-3);}
-  }
 }
+//Spaceship end---------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-
-// class Star {
+class Star 
+{
 //   int [] starArray = new starArray[200];
 //   int x,y;
 
@@ -106,10 +156,15 @@ class SpaceShip extends Floater
 //     x=(int)(Math.random()*500);
 //     y=(int)(math.random()*500);
 //   }
+}
+//Star end------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-  
-// }
+class Asteroid extends SpaceShip
+{
 
+}
+//Asteroid end----------------------------------------------------------------------------------------------------------------------------------------------------------
+ 
 
 
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
