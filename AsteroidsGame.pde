@@ -1,10 +1,16 @@
 SpaceShip ship = new SpaceShip();
+Star star = new Star();
+Star [] spaceStars = new Star[200];
+
 
 
 public void setup() 
 {
   size(500,500);
-  
+  for(int i=0; i<spaceStars.length;i++) 
+  {
+    spaceStars[i]=new Star();
+  }
 }
 
 public void draw() 
@@ -12,6 +18,10 @@ public void draw()
   background(255);
   ship.show(); 
   ship.move();
+  for(int i=0; i<spaceStars.length;i++) 
+  {
+    spaceStars[i].show();
+  }
   //ship.directions();
   // ship.angle();
 
@@ -55,10 +65,10 @@ public void keyPressed()
     if(ship.getDown() == true) {ship.accelerate(-.3);}
     else{ship.accelerate(0);}
 
-    if(ship.getLeft() == true) {ship.rotate(-3);}
+    if(ship.getLeft() == true) {ship.rotate(-5);}
     else{ship.rotate(0);}
 
-    if (ship.getRight() == true) {ship.rotate(3);}
+    if (ship.getRight() == true) {ship.rotate(5);}
     else {ship.rotate(0);}
 }
 
@@ -106,7 +116,6 @@ class SpaceShip extends Floater
     down = false;
     left = false;
     right = false;
-   
   }
 
   public void angle() {
@@ -149,18 +158,31 @@ class SpaceShip extends Floater
 
 class Star 
 {
-//   int [] starArray = new starArray[200];
-//   int x,y;
+  private int x,y;
 
-//   public Star() {
-//     x=(int)(Math.random()*500);
-//     y=(int)(math.random()*500);
-//   }
+  public Star() 
+  {
+    x=(int)(Math.random()*500);
+    y=(int)(Math.random()*500);
+  }
+
+  public void show() {
+    fill(0);
+    ellipse(x,y,2,2);
+  }
 }
 //Star end------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-class Asteroid extends SpaceShip
+class Asteroid extends Floaters
 {
+  public Asteroid 
+  {
+    corners = 6;
+    int [] xy = {-11,7,13,6,-11,5};
+    int [] yx = {-8,-8,0,10,8,0};
+    xCorners = xy;
+    yCorners = yx;
+  }
 
 }
 //Asteroid end----------------------------------------------------------------------------------------------------------------------------------------------------------
