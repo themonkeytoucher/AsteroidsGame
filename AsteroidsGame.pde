@@ -1,5 +1,7 @@
 SpaceShip ship = new SpaceShip();
 Star star = new Star();
+Asteroid rock = new Asteroid();
+ArrayList <Asteroid> poopList = new ArrayList <Asteroid>();
 Star [] spaceStars = new Star[200];
 
 
@@ -11,6 +13,7 @@ public void setup()
   {
     spaceStars[i]=new Star();
   }
+  //for (int i=0; i<722; i<)
 }
 
 public void draw() 
@@ -18,6 +21,8 @@ public void draw()
   background(255);
   ship.show(); 
   ship.move();
+  rock.show();
+  rock.move();
   for(int i=0; i<spaceStars.length;i++) 
   {
     spaceStars[i].show();
@@ -95,6 +100,7 @@ public void keyReleased()
     }
     //} 
 }
+//interface class --------------------------------------------------------------------------------------------------------------------------
 
 //spaceship start ---------------------------------------------------------------------------------------------------------------------------------------
 class SpaceShip extends Floater
@@ -173,9 +179,9 @@ class Star
 }
 //Star end------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-class Asteroid extends Floaters
+class Asteroid extends Floater
 {
-  public Asteroid 
+  public Asteroid() 
   {
     corners = 6;
     int [] xy = {-11,7,13,6,-11,5};
@@ -183,6 +189,21 @@ class Asteroid extends Floaters
     xCorners = xy;
     yCorners = yx;
   }
+
+  public void setX(int x) {myCenterX = x;} //center X
+  public int getX(){return (int)(myCenterX);} 
+
+  public void setY(int y){myCenterY = y;} //Center Y
+  public int getY(){return (int)(myCenterY);}
+
+  public void setDirectionX(double x) {myDirectionX = x;} //direction x
+  public double getDirectionX() {return myDirectionX;}
+
+  public void setDirectionY(double y) {myDirectionY = y;}//directino y
+  public double getDirectionY() {return myDirectionY;}
+
+  public void setPointDirection(int degrees){myPointDirection = degrees;} // point direction
+  public double getPointDirection(){return myPointDirection;}
 
 }
 //Asteroid end----------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -206,7 +227,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   abstract public double getDirectionX();   
   abstract public void setDirectionY(double y);   
   abstract public double getDirectionY();   
-  abstract public void setPointDirection(int degrees);   
+  abstract public void setPointDirection(int degrees);
   abstract public double getPointDirection(); 
 
   //Accelerates the floater in the direction it is pointing (myPointDirection)   
